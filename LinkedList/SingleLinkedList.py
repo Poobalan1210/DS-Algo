@@ -250,13 +250,28 @@ class LinkedList:
 	def delByValue(self,item):
 		if self.start and self.start.data==item:
 			self.start=self.start.next
-			self.start=None
 		else:
 			prev=None
 			cur_node=self.start
 			while  cur_node and cur_node.data!=item:
 				prev=cur_node
 				cur_node=cur_node.next
+			if cur_node is None:
+				return
+			prev.next=cur_node.next
+			cur_node=None
+
+	def delByPosition(self,pos):
+		if self.start and pos==0:
+			self.start=self.start.next
+		else:
+			prev=None
+			cur_node=self.start
+			index=0
+			while cur_node and index!=pos:
+				prev=cur_node
+				cur_node=cur_node.next
+				index+=1
 			if cur_node is None:
 				return
 			prev.next=cur_node.next
@@ -270,7 +285,7 @@ if __name__=="__main__":
 	LL.insertLast(11)
 	LL.insertLast(56)
 	print(LL.countRecCall())
-	LL.delByValue(7)
+	LL.delByPosition(2)
 	#LL.deleteBefore(56)
 	LL.traverse()
 	#LL.deleteLinkedList()
