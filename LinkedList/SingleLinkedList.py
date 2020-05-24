@@ -37,6 +37,9 @@ class LinkedList:
 
 	def getStart(self):
 		return self.start
+
+	def setStart(self,node):
+		self.start=node
 		
 	def createLinkedList(self,node_list):
 		for key in node_list:
