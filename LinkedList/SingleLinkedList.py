@@ -254,6 +254,23 @@ class LinkedList:
 				temp=temp.next
 			return temp.data
 
+	def nthNodeLast2ndAlgo(self,n):
+		if self.start==None:
+			print("LinkedList empty")
+		else:
+			index=self.countRecCall()
+			curr=self.start
+			while(curr!=None):
+				if index==n:
+					break
+				else:
+					curr=curr.next
+					index-=1
+			if curr==None:
+				return
+			else:
+				return curr.data 
+
 	def delByValue(self,item):
 		if self.start and self.start.data==item:
 			self.start=self.start.next
@@ -267,6 +284,19 @@ class LinkedList:
 				return
 			prev.next=cur_node.next
 			cur_node=None
+
+	def removeDuplicates(self):
+		cur=self.start
+		prev=None
+		dup_values=dict()
+		while(cur!=None):
+			if cur.data in dup_values:
+				prev.next=cur.next
+				cur=None
+			else:
+				dup_values[cur.data]=1
+				prev=cur
+			cur=prev.next
 
 	def delByPosition(self,pos):
 		if self.start and pos==0:
@@ -341,14 +371,48 @@ class LinkedList:
 
 		self.start=_reverse_recursive(prev=None,curr=self.start)
 
+	def rotateByVal(self,pivot):
+		if self.start==None:
+			print("Linked List empty")
+		else:
+			curr=self.start
+			pivot_node=None
+			while(curr.getNext()!=None):
+				if curr.getData()==pivot:
+					pivot_node=curr
+				curr=curr.getNext()
+			curr.setNext(self.start)
+			self.start=pivot_node.getNext()
+			pivot_node.next=None
+
+	def rotateByPos(self,pos):
+		if self.start and self.start.next:
+			p=self.start
+			q=self.start
+			prev=None
+			count=0
+
+			while p and count<pos:
+				prev=p
+				p=p.getNext()
+				q=q.getNext()
+				count+=1
+			p=prev
+
+			while q:
+				prev=q
+				q=q.getNext()
+			q=prev
+
+			q.setNext(self.start)
+			self.start=p.getNext()
+			p.setNext(None)
+
 if __name__=="__main__":
 	LL=LinkedList()
-	LL.insertLast(5)
-	LL.insertLast(7)
-	LL.insertLast(9)
-	LL.insertLast(11)
-	LL.insertLast(56)
-	print(LL.countRecCall())
-	LL.swapNodes(7,11)
-	LL.reverse_recursive()
+	LL.createLinkedList([1,2,3,5,7,8,2])
+	print("\n***Traversing LL***")
+	LL.traverse()
+	LL.rotateByPos(4)
+	print("\n***Rotated List***")
 	LL.traverse()
