@@ -408,11 +408,60 @@ class LinkedList:
 			self.start=p.getNext()
 			p.setNext(None)
 
+	def isPalindrome1(self):
+		s=""
+		curr=self.start
+		while(curr!=None):
+			s+=str(curr.getData())
+			curr=curr.getNext()
+		return s==s[::-1]
+
+	def isPalindrome2(self):
+		stack_list=[]
+		curr=self.start
+		while(curr!=None):
+			stack_list.append(curr.getData())
+			curr=curr.getNext()
+
+		curr=self.start
+		isPalindrome=True
+		while(curr!=None and isPalindrome):
+			item=stack_list.pop()
+			if curr.getData()!=item:
+				isPalindrome=False
+				break
+			curr=curr.getNext()
+		
+		return isPalindrome
+
+	def isPalindrome3(self):
+		if self.start:
+			p=self.start
+			q=self.start
+			prev=[]
+
+			i=0
+			while q:
+				prev.append(q)
+				q=q.getNext()
+				i+=1
+			q=prev[i-1]
+
+			count=1
+			while count<=i//2+1:
+			 	if prev[-count].getData()!=p.getData():
+			 		return False
+			 	count+=1
+			 	p=p.getNext()
+			return True
+		else:
+			return True
+
 if __name__=="__main__":
 	LL=LinkedList()
-	LL.createLinkedList([1,2,3,5,7,8,2])
+	LL.createLinkedList([1,2,3,2,1])
 	print("\n***Traversing LL***")
 	LL.traverse()
-	LL.rotateByPos(4)
-	print("\n***Rotated List***")
-	LL.traverse()
+	print(LL.isPalindrome1())
+	print(LL.isPalindrome2())
+	print(LL.isPalindrome3())
