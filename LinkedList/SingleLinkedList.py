@@ -34,6 +34,13 @@ class LinkedList:
 
 	def __init__(self):
 		self.start=None
+
+	def getStart(self):
+		return self.start
+		
+	def createLinkedList(self,node_list):
+		for key in node_list:
+			self.insertLast(key)
 	
 	def insertBegin(self,data):
 		node=Node(data)
@@ -277,6 +284,63 @@ class LinkedList:
 			prev.next=cur_node.next
 			cur_node=None
 
+	def swapNodes(self,key1,key2):
+		if key1==key2:
+			return
+		
+		prev1=None
+		curr1=self.start
+		while curr1 and curr1.data!=key1:
+			prev1=curr1
+			curr1=curr1.next
+		
+		prev2=None
+		curr2=self.start
+		while curr2 and curr2.data!=key2:
+			prev2=curr2
+			curr2=curr2.next
+
+		if not curr1 or not curr2:
+			return
+
+		if prev1:
+			prev1.next=curr2
+		else:
+			self.start=curr2
+
+		if prev2:
+			prev2.next=curr1
+		else:
+			self.start=curr1
+
+		curr1.next, curr2.next=curr2.next,curr1.next
+
+	def reverse(self):
+		if self.start==None:
+			return
+		else:
+			prev=None
+			curr=self.start
+			while curr:
+				temp=curr.next
+				curr.next=prev
+				prev=curr
+				curr=temp
+			self.start=prev
+
+	def reverse_recursive(self):
+
+		def _reverse_recursive(prev,curr):
+			if not curr:
+				return prev
+			temp=curr.next
+			curr.next=prev
+			prev=curr
+			curr=temp
+			return _reverse_recursive(prev,curr)
+
+		self.start=_reverse_recursive(prev=None,curr=self.start)
+
 if __name__=="__main__":
 	LL=LinkedList()
 	LL.insertLast(5)
@@ -285,10 +349,6 @@ if __name__=="__main__":
 	LL.insertLast(11)
 	LL.insertLast(56)
 	print(LL.countRecCall())
-	LL.delByPosition(2)
-	#LL.deleteBefore(56)
+	LL.swapNodes(7,11)
+	LL.reverse_recursive()
 	LL.traverse()
-	#LL.deleteLinkedList()
-	#LL.traverse()
-	print(LL.countRecCall())
-	print(LL.nthNodeFromLast(4))
