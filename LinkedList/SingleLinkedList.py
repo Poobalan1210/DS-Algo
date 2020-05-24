@@ -463,7 +463,7 @@ class LinkedList:
 if __name__=="__main__":
 	LL=LinkedList()
 	LL.createLinkedList([1,2,3,2,1])
-	print("\n***Traversing LL***")
+	print("\n****Traversing LL****")
 	LL.traverse()
 	print(LL.isPalindrome1())
 	print(LL.isPalindrome2())
