@@ -460,11 +460,40 @@ class LinkedList:
 		else:
 			return True
 
+	def sum_two_lists(self, llist):
+		L3=LinkedList()
+		curr1=self.start
+		curr2=llist.start
+		carry=0
+		item=0
+		while curr1!=None and curr2!=None:
+		    summ=curr1.data+curr2.data+carry
+		    item=summ%10
+		    L3.insertLast(item)
+		    carry=summ//10
+		    curr1=curr1.next
+		    curr2=curr2.next
+		            
+		while curr1!=None:
+		    summ=curr1.data+carry
+		    item=summ%10
+		    L3.insertLast(item)
+		    carry=summ//10
+		    curr1=curr1.next
+
+		while curr2!=None:
+		    summ=curr2.data+carry
+		    item=summ%10
+		    L3.insertLast(item)
+		    carry=summ//10
+		    curr2=curr2.next
+		
+		return L3
+
 if __name__=="__main__":
-	LL=LinkedList()
-	LL.createLinkedList([1,2,3,2,1])
-	print("\n***Traversing LL***")
-	LL.traverse()
-	print(LL.isPalindrome1())
-	print(LL.isPalindrome2())
-	print(LL.isPalindrome3())
+	LL1=LinkedList()
+	LL1.createLinkedList([8,2,0,1])
+	LL2=LinkedList()
+	LL2.createLinkedList([2,8])
+	LL3=LL1.sum_two_lists(LL2)
+	LL3.traverse()
