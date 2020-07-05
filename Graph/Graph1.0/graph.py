@@ -11,7 +11,7 @@ class Graph:
 		to take the graph dictionary"""
 
 		if gdict is None:
-			gdict = []
+			gdict = dict()
 		self.gdict = gdict
 
 	def print_graph(self):
@@ -38,27 +38,28 @@ class Graph:
 	def add_vertex(self,new_vertex):
 		"""This method is used to add a new vertex in the graph"""
 		
-		self.gdict[new_vertex]=[]
+		self.gdict[new_vertex]=set([])
 
 	def add_edge(self,edge):
 		"""This method is used to add an edge inside the graph"""
 
 		vertex1,vertex2=tuple(edge)
 		if vertex1 in self.gdict:
-			self.gdict[vertex1].append(vertex2)
+			self.gdict[vertex1].add(vertex2)
 		else:
-			self.gdict[vertex1]=[vertex2]
+			self.gdict[vertex1]={vertex2}
 		
 		if vertex2 not in self.gdict:
-			self.gdict[vertex2]=[]
+			self.gdict[vertex2]=set([])
 
 if __name__=="__main__":
-	sample_dict = { "a" : ["b","c"],
-			"b" : ["a","d"],
-			"c" : ["a","d"],
- 			"d" : ["b","c"],
-			"e" : ["d"]
-		      }
+	sample_dict = { 
+		 	"a" : set(["b","c"]),
+			"b" : set(["a","d"]),
+			"c" : set(["a","d"]),
+ 			"d" : set(["b","c"]),
+			"e" : set(["d"])
+		      }    #using sets for values as there won't be any duplicate vertices
 	
 	#Making graph object
 	graph_obj = Graph(sample_dict)
